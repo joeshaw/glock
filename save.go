@@ -251,6 +251,9 @@ func filterPackages(output []byte, exclude map[string]struct{}) map[string]struc
 func readCmds(filename string) []string {
 	var glockfile, err = os.Open(filename)
 	if err != nil {
+		if os.IsNotExist(err) {
+			return nil
+		}
 		perror(err)
 	}
 
